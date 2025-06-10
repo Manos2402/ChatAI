@@ -1,0 +1,49 @@
+import { GoogleGenAI } from "https://cdn.jsdelivr.net/npm/@google/genai/+esm";
+
+const ai = new GoogleGenAI({ apiKey: "AIzaSyCBNpWYoohJThmAUoVoyueGAU29QraxkCY" });
+
+const send = document.querySelector(".send")
+send.addEventListener("click", getReq)
+
+const textArea = document.getElementById("prompt")
+
+const header = document.getElementById("header")
+const main = document.getElementById("main")
+const footer = document.getElementById("footer")
+
+
+function getReq(){
+  const text = textArea.value;
+   fetch(text)
+}
+
+async function fetch(prompt) {
+  const response = await ai.models.generateContent({
+    model: "gemini-2.0-flash",
+    contents: prompt,
+  });
+  console.log(response.text);
+  let res = response.text
+  pushRes(res)
+}
+
+function pushRes(response){
+  let resDiv = document.createElement("div")
+  resDiv.className = "res"
+  
+  let resP = document.createElement("p")
+  resP.innerHTML = response
+  
+  resDiv.appendChild(resP)
+  main.appendChild(resDiv)
+}
+
+
+
+
+
+
+
+//await fetch();
+
+

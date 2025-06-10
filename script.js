@@ -14,10 +14,20 @@ const footer = document.getElementById("footer")
 
 function getReq(){
   const text = textArea.value;
+  textArea.value = ""
    fetch(text)
 }
 
 async function fetch(prompt) {
+  let reqDiv = document.createElement("div")
+  reqDiv.className = "req"
+  
+  let reqP = document.createElement("p")
+  reqP.innerHTML = prompt
+  
+  reqDiv.appendChild(reqP)
+  main.appendChild(reqDiv)
+  
   const response = await ai.models.generateContent({
     model: "gemini-2.0-flash",
     contents: prompt,
@@ -32,7 +42,8 @@ function pushRes(response){
   resDiv.className = "res"
   
   let resP = document.createElement("p")
-  resP.innerHTML = response
+  const md = marked.parse(response)
+  resP.innerHTML = md
   
   resDiv.appendChild(resP)
   main.appendChild(resDiv)

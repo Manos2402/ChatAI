@@ -28,6 +28,7 @@ body{
   align-items: center;
   margin-bottom: 20px;
   padding: 20px;
+  background-color: var(--background);
 }
 
 #header h1{
@@ -46,6 +47,7 @@ body{
 
 .req{
   max-width: 90%;
+  min-width: auto;
   width: min-content;
   height: auto;
   background-color: var(--ash);

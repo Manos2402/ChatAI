@@ -6,7 +6,7 @@
 }
 
 :root{
-  --background: #0b1121;
+  --background: linear-gradient(to top right, #1e1844,#0f172a);
   --purple: #b883fa;
   --yellow: #f9ec10;
   --ash: #33384f;
@@ -16,7 +16,8 @@
 }
 
 body{
-  background-color: var(--background);
+  background-image: var(--background);
+  height: 100vh;
 }
 
 #header{
@@ -28,7 +29,8 @@ body{
   align-items: center;
   margin-bottom: 20px;
   padding: 20px;
-  background-color: var(--background);
+  background-image: var(--background);
+  border-bottom: 1px solid white;
 }
 
 #header h1{
@@ -47,8 +49,6 @@ body{
 
 .req{
   max-width: 90%;
-  min-width: auto;
-  width: min-content;
   height: auto;
   background-color: var(--ash);
   padding: 10px;
@@ -59,7 +59,7 @@ body{
 .req p{
   color: white;
   line-height: 1.5;
-  overflow-wrap: break-word;
+  overflow: auto;
   font-weight: 800;
 }
 

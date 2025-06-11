@@ -3,7 +3,7 @@ import { GoogleGenAI } from "https://cdn.jsdelivr.net/npm/@google/genai/+esm";
 const ai = new GoogleGenAI({ apiKey: "AIzaSyCBNpWYoohJThmAUoVoyueGAU29QraxkCY" });
 
 const send = document.querySelector(".send")
-send.addEventListener("click", getReq)
+send.addEventListener("click", pushReq)
 
 const textArea = document.getElementById("prompt")
 
@@ -12,7 +12,7 @@ const main = document.getElementById("main")
 const footer = document.getElementById("footer")
 
 
-function getReq(){
+function pushReq(){
   const text = textArea.value;
   textArea.value = ""
   let reqDiv = document.createElement("div")

@@ -1,6 +1,6 @@
 import { GoogleGenAI } from "https://cdn.jsdelivr.net/npm/@google/genai/+esm";
 
-const ai = new GoogleGenAI({ apiKey: "AIzaSyCBNpWYoohJThmAUoVoyueGAU29QraxkCY" });
+const ai = new GoogleGenAI({ apiKey: "" });
 
 const send = document.querySelector(".send")
 send.addEventListener("click", pushReq)

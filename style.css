@@ -25,17 +25,21 @@ body{
   top: 0;
   height: 8vh;
   display: flex;
-  justify-content: center;
+  justify-content: start;
   align-items: center;
   padding: 20px;
   background-image: var(--background);
   border-bottom: 1px solid white;
 }
 
-#header h1{
-  color: #C2973D;
+#header h3{
+  color: white;
   font-weight: 500;
-  font-size: 35px;
+  font-size: 1.5rem;
+}
+
+.logo{
+  width: 12rem;
 }
 
 #main{
@@ -99,14 +103,13 @@ body{
 
 #footer textarea{
   width: 85%;
+  background-color: var(--ash);
   outline: none;
-  background-color: var(--ash);;
-  border: 1px solid white;
   padding: 5px;
   color: white;
-  border-radius: 5px;
   font-weight: 800;
   height: 100%;
+  border: none;
 }
 
 .send{

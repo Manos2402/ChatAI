@@ -1,4 +1,6 @@
-import { GoogleGenAI } from "https://cdn.jsdelivr.net/npm/@google/genai/+esm";
+import { GoogleGenAI,
+  createUserContent,
+  createPartFromUri } from "https://cdn.jsdelivr.net/npm/@google/genai/+esm";
 
 const ai = new GoogleGenAI({ apiKey: "API KEY IS HIDDEN HERE" });
 
@@ -12,7 +14,7 @@ const main = document.getElementById("main")
 const footer = document.getElementById("footer")
 
 let chat = "";
-
+let image;
 
 async function pushReq(){
   const loader = document.createElement("div")
@@ -29,22 +31,38 @@ async function pushReq(){
   reqDiv.appendChild(reqP)
   main.appendChild(reqDiv)
   main.appendChild(loader)
-   fetch(text)
-   createChat(text,null)
+  await imageInput()
+  fetch(text)
+  
 }
 
 async function fetch(prompt) {
-  console.log(`${chat}
-    
-    Now my question is - ${prompt}`)
-    const response = await ai.models.generateContent({
+  
+  const media = await ai.files.upload({
+    file: image
+  })
+  const query = `${chat}
+     
+     Now my question is - ${prompt}`
+  createChat(prompt,null)
+  console.log(query)
+  const response = await ai.models.generateContent({
     model: "gemini-2.0-flash",
-    contents: `${chat}
-    
-    Now my question is - ${prompt}`,
+     contents: [
+       createUserContent(
+         [
+           query,
+     createPartFromUri(media.uri, media.mimeType)
+           ]
+         )
+       ],
+     config: {
+      systemInstruction: "You are a text based chatbot. Your name is CyberSphere AI.Manos Debnath has created you with the help of Gemini API. "
+    }
   });
   
   let res = response.text;
+  console.log(res)
   createChat(null, res)
   pushRes(res)
 }
@@ -73,7 +91,7 @@ function createChat(req, res){
   
   `}
   if(ele.length == 1){
-    if (req) {
+      if (req) {
       chat += `My Question-${req}
       
       `
@@ -99,10 +117,15 @@ function createChat(req, res){
     }
  
  
-// console.log(chat)
 }
 
-console.log(chat)
+function imageInput(){
+  const upload = document.getElementById("media")
+  image = upload.files[0]
+}
+
+
+
 
 //setInterval(function() {console.log(chat)}, 3000);
 

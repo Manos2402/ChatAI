@@ -2,7 +2,7 @@ import { GoogleGenAI,
   createUserContent,
   createPartFromUri } from "https://cdn.jsdelivr.net/npm/@google/genai/+esm";
 
-const ai = new GoogleGenAI({ apiKey: "API KEY IS HIDDEN HERE" });
+const ai = new GoogleGenAI({ apiKey: "AIzaSyCBNpWYoohJThmAUoVoyueGAU29QraxkCY" });
 
 const send = document.querySelector(".send")
 send.addEventListener("click", pushReq)
@@ -37,8 +37,8 @@ async function pushReq(){
 }
 
 async function fetch(prompt) {
-  
-  const media = await ai.files.upload({
+  if(image){
+    const media = await ai.files.upload({
     file: image
   })
   const query = `${chat}
@@ -65,6 +65,26 @@ async function fetch(prompt) {
   console.log(res)
   createChat(null, res)
   pushRes(res)
+  }else{
+    
+  const query = `${chat}
+     
+     Now my question is - ${prompt}`
+  createChat(prompt,null)
+  console.log(query)
+  const response = await ai.models.generateContent({
+    model: "gemini-2.0-flash",
+     contents: query,
+     config: {
+     systemInstruction: "You are a text based chatbot. Your name is CyberSphere AI.Manos Debnath has created you with the help of Gemini API. "
+    }
+  });
+  
+  let res = response.text;
+  console.log(res)
+  createChat(null, res)
+  pushRes(res)
+  }
 }
 
 function pushRes(response){
@@ -121,7 +141,10 @@ function createChat(req, res){
 
 function imageInput(){
   const upload = document.getElementById("media")
+  const showImage = document.getElementById("showImage")
   image = upload.files[0]
+  console.log(image.uri)
+  showImage.src = image
 }
 
 
